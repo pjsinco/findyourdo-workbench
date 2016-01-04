@@ -10,7 +10,11 @@ var LocationForm = React.createClass({
                 <div className="hero--form--inner">
                     <div className="row">
                         <div className="col-sm-12 location form-group">
-                            <TypeaheadInput />
+                            <TypeaheadInput 
+                                onChange={this.props.onChange}
+                                bloodhound={this.props.bloodhound}
+                                data={this.props.data}
+                            />
                             <i className="searchclear">&times;</i>
                         </div>
                     </div>
