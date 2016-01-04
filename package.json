@@ -13,6 +13,7 @@
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "superagent": "^1.5.0",
+    "typeahead.js": "^0.11.1",
     "underscore": "^1.8.3",
     "url": "^0.11.0"
   },

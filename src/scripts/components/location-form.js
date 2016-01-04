@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var LocationInput = require('./location-input');
+var TypeaheadInput = require('./typeahead-input');
 var LocationForm = React.createClass({
 
     render: function() {
@@ -10,7 +10,7 @@ var LocationForm = React.createClass({
                 <div className="hero--form--inner">
                     <div className="row">
                         <div className="col-sm-12 location form-group">
-                            <LocationInput />
+                            <TypeaheadInput />
                             <i className="searchclear">&times;</i>
                         </div>
                     </div>
