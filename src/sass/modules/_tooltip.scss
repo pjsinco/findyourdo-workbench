@@ -1,0 +1,54 @@
+/**
+ * Tooltip Styles
+ */
+
+/* Add this attribute to the element that needs a tooltip */
+.fyd-tooltip {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    background: transparent;
+    transition: all .5s linear;
+}
+
+/* Hide the tooltip content by default */
+.fyd-tooltip:before,
+.fyd-tooltip:after {
+    /*visibility: hidden;*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    /*filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);*/
+    /*opacity: 0;*/
+    pointer-events: none;
+    background: transparent;
+    transition: all .5s linear;
+}
+
+/* Position tooltip above the element */
+.fyd-tooltip:before{
+    
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+    height: 30px;
+    margin-bottom: auto;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 7px;
+    z-index: 3;
+    text-align: center;
+    font-size: 14px;
+    font-weight: $fontbold;
+    line-height: 1.2;
+    border-radius: 0;
+    background: rgba($cyan,.9);
+    color: #fff;
+    content: attr(data-tooltip);
+    /*opacity: 1;*/
+    transition: all .5s linear;
+
+    @media screen and (min-width: $largestart) and (max-width: $desktopstart) {
+        height: 75%;
+        padding: 5px 7px;
+    }
+
+}

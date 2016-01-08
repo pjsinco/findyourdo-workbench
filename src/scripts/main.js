@@ -8,13 +8,14 @@ import ReactDOM from 'react-dom';
 import AppAutosuggest from './components/app-autosuggest';
 import AppAutosuggestAsync from './components/app-autosuggest-async';
 import Example from './components/example';
+import FindYourDoForm from './components/findyourdo-form';
 
 (function() {
 
     console.log('hiya');
 
     ReactDOM.render(
-        <Example />,
+        <FindYourDoForm />,
         document.getElementById('findYourDoApp')
     );
 
