@@ -2,6 +2,7 @@
 
 var React = require('react');
 var ExampleStore = require('../stores/example-store');
+var $ = require('jquery');
 var LocationForm = require('./location-form');
 var Bloodhound = require('./../../../node_modules/typeahead.js/dist/bloodhound.min.js');
 
@@ -25,13 +26,23 @@ var App = React.createClass({
     },
 
     componentWillMount: function() {
+        
+
         // TODO probably as
         // ExampleStore.addChangeListener(this._onChange);
-        this.locationEngine = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.whitespace,
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            local: states,
-        });
+//        this.engine = new Bloodhound({
+//            datumTokenizer: Bloodhound.tokenizers.obj.nonword('name'),
+//            queryTokenizer: Bloodhound.tokenizers.whitespace,
+//            prefetch: {
+//                url: 'http://lookup.findyourdo.org/api/v1/specialties',
+//                filter: function(obj) {
+//                    return _.map(obj['data'], function(specialty) {
+//                        return specialty;
+//                    });
+//                }
+//            },
+//            //local: states,
+//        });
 
     },
 
@@ -57,7 +68,7 @@ console.log('handlelocationchange');
             <LocationForm 
                 onChange={this._handleLocationChange}
                 data={states}
-                bloodhound={this.locationEngine}
+                bloodhound={this.engine}
             />
         );
     }
