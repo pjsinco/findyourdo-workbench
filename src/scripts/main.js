@@ -11,9 +11,11 @@ import Example from './components/example';
 
 (function() {
 
+    console.log('hiya');
+
     ReactDOM.render(
         <Example />,
-        document.getElementById('findYourDo')
+        document.getElementById('findYourDoApp')
     );
 
 })();

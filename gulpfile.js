@@ -27,8 +27,8 @@ gulp.task('compileSass', function() {
         .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('./dist/styles'))
-        .pipe(notify({ message: 'Sassed!' }));
-        //.pipe(browserSync.stream());
+        .pipe(notify({ message: 'Sassed!' }))
+        .pipe(browserSync.stream());
     
 });
 
@@ -61,17 +61,17 @@ gulp.task('scripts', function() {
         .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('dist/scripts/'))
-        .pipe(notify({ message: 'Browserified!' }));
-        //.pipe(browserSync.stream());
+        .pipe(notify({ message: 'Browserified!' }))
+        .pipe(browserSync.stream());
         
 });
 
 //gulp.task('default', ['compileSass', 'scripts', 'lint'], function() {
 gulp.task('default', ['compileSass', 'scripts'], function() {
 
-//    browserSync.init({
-//        server: './',
-//    });
+    browserSync.init({
+        proxy: 'http://localhost:5000',
+    });
 
     gulp.watch('./src/sass/**/*.scss', ['compileSass']);
     //gulp.watch('./src/scripts/**/*.js', ['scripts', 'lint']);
