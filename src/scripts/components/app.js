@@ -4,6 +4,8 @@ var React = require('react');
 var FindYourDoForm = require('./findyourdo-form');
 var ResultsPage = require('./results-page');
 var HomePage = require('./home-page');
+var querystring = require('querystring');
+var url = require('url');
 
 var whereWeAre = window.location.pathname;
 
@@ -28,6 +30,22 @@ var App = React.createClass({
     });
   },
 
+  /**
+   * @param {object} location 
+   *
+   */
+  _handleSubmit: function(location) {
+    var newUrl = {
+      protocol: window.location.protocol,
+      host: window.location.host,
+      pathname: '/find-your-do',
+      hash: 'search'
+    };
+
+    window.location = url.format(newUrl) + '?' + 
+      querystring.stringify(this.state.searchLocation);
+  },
+
   componentWillUpdate: function(nextProps, nextState) {
     localStorage.setItem('fydLocation', JSON.stringify({
       city:  nextState.searchLocation.city,
@@ -46,6 +64,7 @@ var App = React.createClass({
         <ResultsPage 
           searchLocation={this.state.searchLocation} 
           onLocationChange={this._handleLocationChange}
+          onSubmit={this._handleSubmit}
         />
       );
     } else if (whereWeAre === '/') {
@@ -53,6 +72,7 @@ var App = React.createClass({
         <HomePage 
           searchLocation={this.state.searchLocation} 
           onLocationChange={this._handleLocationChange}
+          onSubmit={this._handleSubmit}
         />
       );
     } 

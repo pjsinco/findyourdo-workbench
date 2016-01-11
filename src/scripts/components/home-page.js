@@ -12,6 +12,7 @@ var HomePage = React.createClass({
       <FindYourDoForm
         searchLocation={this.props.searchLocation}
         onLocationChange={this.props.onLocationChange}
+        onSubmit={this.props.onSubmit}
       />
     );
   }
