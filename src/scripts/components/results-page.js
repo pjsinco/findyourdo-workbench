@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-
+var FindYourDoForm = require('./findyourdo-form');
 
 var ResultsPage = React.createClass({
 
@@ -37,7 +37,11 @@ var ResultsPage = React.createClass({
   render: function() {
 
     return (
-      <div />
+      <FindYourDoForm
+        searchLocation={this.props.searchLocation}
+        onLocationChange={this.props.onLocationChange}
+        onSubmit={this.props.onSubmit}
+      />
     );
   }
 
