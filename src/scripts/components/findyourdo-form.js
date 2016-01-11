@@ -25,7 +25,8 @@ var FindYourDoForm = React.createClass({
 
   _handleSubmit: function(evt) {
     evt.preventDefault();
-    this.props.onSubmit(this._parseLocation(this.refs.location.state.value));
+    var location = this._parseLocation(this.refs.location.state.value);
+    this.props.handleSubmit(location);
   },
 
   _handleLocationSelected: function(location) {
@@ -33,6 +34,7 @@ var FindYourDoForm = React.createClass({
   },
 
   render: function() {
+console.dir(this.props.searchLocation.city + ', ' + this.props.searchLocation.state);
     return (
       <div className="row">
         <div className="col-md-9 hero--form">

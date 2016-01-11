@@ -7,12 +7,16 @@ var HomePage = React.createClass({
 
   displayName: 'HomePage',
 
+  _handleSubmit: function() {
+    this.props.handleSubmit(); 
+  },
+
   render: function() {
     return (
       <FindYourDoForm
         searchLocation={this.props.searchLocation}
         onLocationChange={this.props.onLocationChange}
-        onSubmit={this.props.onSubmit}
+        handleSubmit={this.props.handleSubmit}
       />
     );
   }

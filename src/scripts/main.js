@@ -13,12 +13,11 @@ import App from './components/app';
 
 (function() {
 
-  console.log('hiya');
-
   ReactDOM.render(
     <App />,
     document.getElementById('findYourDoApp')
   );
+
 
 })();
 

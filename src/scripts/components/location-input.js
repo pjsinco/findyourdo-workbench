@@ -189,6 +189,20 @@ var LocationInput = React.createClass({
         this.props.handleLocationSelected(object.suggestion);
     },
 
+  componentWillReceiveProps: function(newProps) {
+    var value = '';
+
+    if (this.props.searchLocation) {
+        value = this.props.searchLocation.city + ', ' +
+            this.props.searchLocation.state;
+    }
+
+    this.setState({
+        value: value,
+        suggestions: getMatchingLocations(''),
+    });
+  },
+
   render: function() {
     //const { value, suggestions, isLoading } = this.state;
     var currState = this.state;

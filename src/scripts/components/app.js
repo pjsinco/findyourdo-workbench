@@ -6,9 +6,13 @@ var ResultsPage = require('./results-page');
 var HomePage = require('./home-page');
 var querystring = require('querystring');
 var url = require('url');
+var request = require('superagent');
 
 var whereWeAre = window.location.pathname;
 
+function getLocation() {
+  return JSON.parse(localStorage.getItem('fydLocation'));
+}
 
 var App = React.createClass({
 
@@ -16,18 +20,48 @@ var App = React.createClass({
 
   getInitialState: function() {
     return {
-      searchLocation: JSON.parse(localStorage.getItem('fydLocation'))
+      searchLocation: getLocation(),
+      doctors: [],
+      meta: {},
     };
+  },
+
+  _getDoctors: function(queryObject) {
+    request
+      .get('http://lookup.findyourdo.org/api/v1/physicians/search')
+      .query({ page: '1' })
+      .query({ per_page: '25' })
+      .query({ order_by: 'distance' })
+      .query({ sort: 'asc' })
+      .query({ city: queryObject.city })
+      .query({ state: queryObject.state })
+      .query({ zip: queryObject.zip })
+      .query({ lat: queryObject.lat })
+      .query({ lon: queryObject.lon })
+      //.query({ q: queryObject.q })
+      .end(function(err, res) {
+        this.setState({
+          doctors: res.body.data,
+          meta: res.body.meta,
+        });
+      }.bind(this));
   },
 
   /**
    * @param {object} location
    *
    */
-  _handleLocationChange: function(location) {
+  _handleLocationChange: function(searchLocation) {
     this.setState({
-      searchLocation: location
+      searchLocation: searchLocation
     });
+  },
+
+  _handleHashChange: function(searchLocation) {
+    this.setState({
+      searchLocation: searchLocation
+    });
+    this._getDoctors(searchLocation);
   },
 
   /**
@@ -57,14 +91,16 @@ var App = React.createClass({
   },
 
   render: function() {
-    var component;
-
     if (whereWeAre === '/find-your-do') {
       return (
         <ResultsPage 
           searchLocation={this.state.searchLocation} 
           onLocationChange={this._handleLocationChange}
-          onSubmit={this._handleSubmit}
+          handleSubmit={this._handleSubmit}
+          handleHashChange={this._handleHashChange}
+          getDoctors={this._getDoctors}
+          doctors={this.state.doctors}
+          meta={this.state.meta}
         />
       );
     } else if (whereWeAre === '/') {
@@ -72,11 +108,10 @@ var App = React.createClass({
         <HomePage 
           searchLocation={this.state.searchLocation} 
           onLocationChange={this._handleLocationChange}
-          onSubmit={this._handleSubmit}
+          handleSubmit={this._handleSubmit}
         />
       );
     } 
-
   }
 
 });
