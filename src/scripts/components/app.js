@@ -11,7 +11,14 @@ var request = require('superagent');
 var whereWeAre = window.location.pathname;
 
 function getLocation() {
-  return JSON.parse(localStorage.getItem('fydLocation'));
+  var queryString;
+
+  if (window.location.hash) {
+    queryString = querystring.parse(window.location.hash.substr(1).replace('search?', ''))
+  }
+
+  return queryString || JSON.parse(localStorage.getItem('fydLocation'));
+    
 }
 
 var App = React.createClass({

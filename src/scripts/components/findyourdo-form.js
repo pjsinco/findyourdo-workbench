@@ -34,7 +34,6 @@ var FindYourDoForm = React.createClass({
   },
 
   render: function() {
-console.dir(this.props.searchLocation.city + ', ' + this.props.searchLocation.state);
     return (
       <div className="row">
         <div className="col-md-9 hero--form">
