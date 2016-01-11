@@ -29,14 +29,7 @@ var FindYourDoForm = React.createClass({
     },
 
     _handleLocationSelected: function(location) {
-        this.props.handleLocationSelected(location);
-        localStorage.setItem('fydLocation', JSON.stringify({
-            city: location.city,
-            state: location.state,
-            zip: location.zip,
-            lat: location.lat,
-            lon: location.lon,
-        }));
+      this.props.onLocationChange(location);
     },
 
     render: function() {

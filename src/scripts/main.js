@@ -9,15 +9,16 @@ import AppAutosuggest from './components/app-autosuggest';
 import AppAutosuggestAsync from './components/app-autosuggest-async';
 import Example from './components/example';
 import FindYourDoForm from './components/findyourdo-form';
+import App from './components/app';
 
 (function() {
 
-    console.log('hiya');
+  console.log('hiya');
 
-    ReactDOM.render(
-        <FindYourDoForm />,
-        document.getElementById('findYourDoApp')
-    );
+  ReactDOM.render(
+    <App />,
+    document.getElementById('findYourDoApp')
+  );
 
 })();
 
