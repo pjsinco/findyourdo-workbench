@@ -4,6 +4,7 @@ var React = require('react');
 var FindYourDoForm = require('./findyourdo-form');
 var ResultsMeta = require('./results-meta');
 var DoctorList = require('./doctorlist');
+var Filters = require('./filters');
 var request = require('superagent');
 var querystring = require('querystring');
 var url = require('url');
@@ -13,8 +14,7 @@ var ResultsPage = React.createClass({
   getInitialState: function() {
     return {
       searchLocation: this.props.searchLocation,
-      doctors: [],
-      meta: {},
+      data: {},
     };
   },
 
@@ -51,8 +51,7 @@ var ResultsPage = React.createClass({
       //.query({ q: queryObject.q })
       .end(function(err, res) {
         this.setState({
-          doctors: res.body.data,
-          meta: res.body.meta,
+          data: res.body,
         });
       }.bind(this));
   },
@@ -75,6 +74,10 @@ var ResultsPage = React.createClass({
 
   },
 
+  _handleRadiusChange: function() {
+
+  },
+
   componentWillMount: function() {
     
   },
@@ -86,23 +89,30 @@ var ResultsPage = React.createClass({
   render: function() {
     var results;
 
-    if (Object.keys(this.state.doctors).length > 0) {
+    if (Object.keys(this.state.data).length > 0) {
       results = (
         <div>
-          <ResultsMeta meta={this.state.meta} />
-          <DoctorList doctors={this.state.doctors} />
+          <ResultsMeta meta={this.state.data.meta} />
+          <DoctorList doctors={this.state.data.data} />
         </div>
       );
     }
 
     return (
-      <div className="col-md-6">
-        <FindYourDoForm
-          searchLocation={this.state.searchLocation}
-          onLocationChange={this.props.setLocation}
-          handleSubmit={this.props.handleSubmit}
-        />
-        {results}
+      <div className="row">
+        <div className="col-md-6">
+          <FindYourDoForm
+            searchLocation={this.state.searchLocation}
+            onLocationChange={this.props.setLocation}
+            handleSubmit={this.props.handleSubmit}
+          />
+          {results}
+        </div>
+        <div className="col-md-6">
+          <Filters data={this.state.data} 
+            handleRadiusChange={this._handleRadiusChange}
+          />
+        </div>
       </div>
     );
   }
