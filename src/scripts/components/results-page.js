@@ -96,7 +96,7 @@ var ResultsPage = React.createClass({
     }
 
     return (
-      <div>
+      <div className="col-md-6">
         <FindYourDoForm
           searchLocation={this.state.searchLocation}
           onLocationChange={this.props.setLocation}
