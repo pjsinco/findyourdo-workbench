@@ -9,11 +9,11 @@ var ResultsMeta = React.createClass({
   },
 
   render: function() {
-console.log('renderresultsmeta');
-console.dir(this.props.meta);
+    var meta = this.props.meta;
+
     return (
       <div>
-        {this.props.meta.city}
+        {meta.pagination.total} {meta.city}, {meta.state}
       </div>
     );
   }

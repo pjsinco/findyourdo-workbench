@@ -33,44 +33,6 @@ var App = React.createClass({
     };
   },
 
-  _getDoctors: function(queryObject) {
-    request
-      .get('http://lookup.findyourdo.org/api/v1/physicians/search')
-      .query({ page: '1' })
-      .query({ per_page: '25' })
-      .query({ order_by: 'distance' })
-      .query({ sort: 'asc' })
-      .query({ city: queryObject.city })
-      .query({ state: queryObject.state })
-      .query({ zip: queryObject.zip })
-      .query({ lat: queryObject.lat })
-      .query({ lon: queryObject.lon })
-      //.query({ q: queryObject.q })
-      .end(function(err, res) {
-        this.setState({
-          doctors: res.body.data,
-          meta: res.body.meta,
-        });
-      }.bind(this));
-  },
-
-  /**
-   * @param {object} location
-   *
-   */
-  _handleLocationChange: function(searchLocation) {
-    this.setState({
-      searchLocation: searchLocation
-    });
-  },
-
-  _handleHashChange: function(searchLocation) {
-    this.setState({
-      searchLocation: searchLocation
-    });
-    this._getDoctors(searchLocation);
-  },
-
   /**
    * @param {object} location 
    *

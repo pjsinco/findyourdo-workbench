@@ -9,15 +9,55 @@ var url = require('url');
 
 var ResultsPage = React.createClass({
 
+  getInitialState: function() {
+    return {
+      searchLocation: this.props.searchLocation,
+      doctors: [],
+      meta: {},
+    };
+  },
+
   propTypes: {
     searchLocation: React.PropTypes.object,
-    onLocationChange: React.PropTypes.func,
-    onSubmit: React.PropTypes.func,
+    setLocation: React.PropTypes.func,
+    handleSubmit: React.PropTypes.func,
+  },
+
+  _handleHashChange: function(searchLocation) {
+
+    this.props.setLocation(searchLocation);
+
+    this.setState({
+      searchLocation: this.props.getLocation(),
+    });
+
+    this._getDoctors(searchLocation);
+  },
+
+  _getDoctors: function(queryObject) {
+    request
+      .get('http://lookup.findyourdo.org/api/v1/physicians/search')
+      .query({ page: '1' })
+      .query({ per_page: '25' })
+      .query({ order_by: 'distance' })
+      .query({ sort: 'asc' })
+      .query({ city: queryObject.city })
+      .query({ state: queryObject.state })
+      .query({ zip: queryObject.zip })
+      .query({ lat: queryObject.lat })
+      .query({ lon: queryObject.lon })
+      //.query({ q: queryObject.q })
+      .end(function(err, res) {
+        this.setState({
+          doctors: res.body.data,
+          meta: res.body.meta,
+        });
+      }.bind(this));
   },
 
   componentDidMount: function() {
 
-    this.props.getDoctors(
+    this._getDoctors(
         querystring.parse(window.location.hash.substr(1).replace('search?', ''))
     );
 
@@ -27,23 +67,29 @@ var ResultsPage = React.createClass({
         evt.target.location.hash.substr(1).replace('search?', '')
       );
 
-      this.props.handleHashChange(searchLocation);
+      this._handleHashChange(searchLocation);
 
     }.bind(this))
 
+  },
+
+  componentWillMount: function() {
+    
+  },
+
+  componentWillUnmount: function() {
+    window.removeListener('hashchange');
   },
 
   render: function() {
     return (
       <div>
         <FindYourDoForm
-          searchLocation={this.props.searchLocation}
-          onLocationChange={this.props.onLocationChange}
+          searchLocation={this.state.searchLocation}
+          onLocationChange={this.props.setLocation}
           handleSubmit={this.props.handleSubmit}
         />
-        <ResultsMeta
-          meta={this.props.meta}
-        />
+        {Object.keys(this.state.meta).length > 0 ? <ResultsMeta meta={this.state.meta} /> : ''}
       </div>
     );
   }
