@@ -9,11 +9,13 @@ var HomePage = React.createClass({
 
   render: function() {
     return (
-      <FindYourDoForm
-        searchLocation={this.props.searchLocation}
-        onLocationChange={this.props.setLocation}
-        handleSubmit={this.props.handleSubmit}
-      />
+      <div className="col-md-6">
+        <FindYourDoForm
+          searchLocation={this.props.searchLocation}
+          onLocationChange={this.props.setLocation}
+          handleSubmit={this.props.handleSubmit}
+        />
+      </div>
     );
   }
 
