@@ -3,6 +3,7 @@
 var React = require('react');
 var FindYourDoForm = require('./findyourdo-form');
 var ResultsMeta = require('./results-meta');
+var DoctorList = require('./doctorlist');
 var request = require('superagent');
 var querystring = require('querystring');
 var url = require('url');
@@ -36,7 +37,8 @@ var ResultsPage = React.createClass({
 
   _getDoctors: function(queryObject) {
     request
-      .get('http://lookup.findyourdo.org/api/v1/physicians/search')
+      //.get('http://lookup.findyourdo.org/api/v1/physicians/search')
+      .get('http://lookupapi.dev/api/v1/doctors/search')
       .query({ page: '1' })
       .query({ per_page: '25' })
       .query({ order_by: 'distance' })
@@ -82,6 +84,17 @@ var ResultsPage = React.createClass({
   },
 
   render: function() {
+    var results;
+
+    if (Object.keys(this.state.doctors).length > 0) {
+      results = (
+        <div>
+          <ResultsMeta meta={this.state.meta} />
+          <DoctorList doctors={this.state.doctors} />
+        </div>
+      );
+    }
+
     return (
       <div>
         <FindYourDoForm
@@ -89,7 +102,7 @@ var ResultsPage = React.createClass({
           onLocationChange={this.props.setLocation}
           handleSubmit={this.props.handleSubmit}
         />
-        {Object.keys(this.state.meta).length > 0 ? <ResultsMeta meta={this.state.meta} /> : ''}
+        {results}
       </div>
     );
   }

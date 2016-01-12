@@ -13,7 +13,7 @@ var ResultsMeta = React.createClass({
 
     return (
       <div>
-        {meta.pagination.total} {meta.city}, {meta.state}
+        {meta.count} {meta.city}, {meta.state}
       </div>
     );
   }
