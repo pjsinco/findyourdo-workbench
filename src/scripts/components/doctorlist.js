@@ -6,13 +6,18 @@ var DoctorList = React.createClass({
 
   render: function() {
     var createDoctor = function(doctor, i) {
+    var genderColor = 
+        { color: (doctor.gender == 'Female' ? 'fuchsia' : 'steelblue') };
       return (
         <li key={i}>
-          <a href={"/find-your-do#physicians/" + doctor.id}>{doctor.full_name}</a>
-          <span style={{marginLeft: '3px', color: '#999'}}>
-            {doctor.specialty} &bull; {doctor.gender}
-          </span><br />
-          <span style={{color: '#999'}}>{doctor.distance} miles</span>
+          <h5>
+            <a href={"/find-your-do#physicians/" + doctor.id}>{doctor.full_name}</a>
+          </h5>
+          <p style={{color: '#999'}}>
+            {doctor.specialty}
+            <span style={genderColor}> &#x02591; </span>
+          </p>
+          <p style={{color: '#999'}}>{doctor.distance} miles</p>
         </li>
       )
     }
