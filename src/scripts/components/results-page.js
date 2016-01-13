@@ -25,6 +25,7 @@ var ResultsPage = React.createClass({
   },
 
   _handleHashChange: function(searchLocation) {
+console.log('handlehashchange');
 
     this.props.setLocation(searchLocation);
 
