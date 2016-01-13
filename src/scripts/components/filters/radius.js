@@ -31,6 +31,7 @@ console.log(radius);
     this.props.getDoctors(this.props.searchLocation, radius);
 
   },
+
   render: function() {
     return (
       <div className="form-group">

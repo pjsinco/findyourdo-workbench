@@ -48,7 +48,7 @@ var SpecialtyFilter = React.createClass({
     for (var specialty in specialties) {
       if (specialties.hasOwnProperty(specialty)) {
         options.push(
-          <option value={specialty}>
+          <option value={specialty} key={specialty}>
             {specialties[specialty].full} ({specialties[specialty].count})
           </option>
         )

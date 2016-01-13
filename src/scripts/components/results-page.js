@@ -37,7 +37,6 @@ console.log('handlehashchange');
   },
 
   _getDoctors: function(queryObject, distance) {
-
     request
       //.get('http://lookup.findyourdo.org/api/v1/physicians/search')
       .get('http://lookupapi.dev/api/v1/doctors/search')
