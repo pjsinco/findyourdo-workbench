@@ -27,6 +27,7 @@ import querystring from 'querystring';
    *
    */
   function handleSubmit() {
+console.log('handlesubmit');
     var newUrl = {
       protocol: window.location.protocol,
       host: window.location.host,

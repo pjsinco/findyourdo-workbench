@@ -37,8 +37,6 @@ var ResultsPage = React.createClass({
 
   _getDoctors: function(queryObject, distance) {
 
-    var distance = distance || '25';
-
     request
       //.get('http://lookup.findyourdo.org/api/v1/physicians/search')
       .get('http://lookupapi.dev/api/v1/doctors/search')
