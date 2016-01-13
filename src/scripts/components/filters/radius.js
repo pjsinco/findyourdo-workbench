@@ -33,7 +33,7 @@ console.log(radius);
   },
   render: function() {
     return (
-      <div>
+      <div className="form-group">
         <label htmlFor="radius">Distance</label>
         <input onChange={this._onChange} 
           onInput={this._onInput}

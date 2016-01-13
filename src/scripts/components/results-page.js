@@ -90,7 +90,7 @@ console.log('handlehashchange');
   },
 
   render: function() {
-    var results;
+    var results, filters;
 
     if (Object.keys(this.state.data).length > 0) {
       results = (
@@ -98,6 +98,14 @@ console.log('handlehashchange');
           <ResultsMeta meta={this.state.data.meta} />
           <DoctorList doctors={this.state.data.data} />
         </div>
+      );
+
+      filters = (
+        <Filters data={this.state.data} 
+          handleRadiusChange={this._handleRadiusChange}
+          getDoctors={this._getDoctors}
+          searchLocation={this.state.searchLocation}
+        />
       );
     }
 
@@ -112,11 +120,7 @@ console.log('handlehashchange');
           {results}
         </div>
         <div className="col-md-6">
-          <Filters data={this.state.data} 
-            handleRadiusChange={this._handleRadiusChange}
-            getDoctors={this._getDoctors}
-            searchLocation={this.state.searchLocation}
-          />
+          {filters}
         </div>
       </div>
     );
