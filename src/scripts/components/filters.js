@@ -37,6 +37,7 @@ var Filters = React.createClass({
               searchLocation={this.props.searchLocation} 
               getDoctors={this.props.getDoctors}
               doctors={this.props.data.data}
+              handleFiltered={this.props.handleFiltered}
             />
           </div>
         </div>

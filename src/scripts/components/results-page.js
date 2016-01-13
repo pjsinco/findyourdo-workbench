@@ -8,6 +8,7 @@ var Filters = require('./filters');
 var request = require('superagent');
 var querystring = require('querystring');
 var url = require('url');
+var _ = require('underscore');
 
 var ResultsPage = React.createClass({
 
@@ -34,6 +35,15 @@ console.log('handlehashchange');
     });
 
     this._getDoctors(searchLocation);
+  },
+
+  _handleFiltered: function(filteredDoctors) {
+    var updatedData = _.clone(this.state.data);
+    updatedData.data = filteredDoctors;
+
+    this.setState({
+      data: updatedData,
+    });
   },
 
   _getDoctors: function(queryObject, distance) {
@@ -102,6 +112,7 @@ console.log('handlehashchange');
       filters = (
         <Filters data={this.state.data} 
           handleRadiusChange={this._handleRadiusChange}
+          handleFiltered={this._handleFiltered}
           getDoctors={this._getDoctors}
           searchLocation={this.state.searchLocation}
         />

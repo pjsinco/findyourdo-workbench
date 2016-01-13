@@ -3,21 +3,15 @@
 var React = require('react');
 var _ = require('underscore');
 
-var specialties = [
-  {
-    code: 'AME',
-    full: 'Addiction Medicine',
-    count: 3
-  },
-  {
-    code: 'ASM',
-    full: 'Aerospace Medicine',
-    count: 1,
-  },
-];
-
 var SpecialtyFilter = React.createClass({
   
+  _onChange: function(evt) {
+    var specialtyCode = evt.target.selectedOptions[0].value;
+    var filteredDoctors = this.props.doctors.filter(function(doctor) {
+      return doctor.specialty_code === specialtyCode;
+    });
+    this.props.handleFiltered(filteredDoctors);
+  },
 
   render: function() {
     var specialties = {};
@@ -55,10 +49,14 @@ var SpecialtyFilter = React.createClass({
       }
     }
 
+
     return (
       <div className="form-group">
         <label htmlFor="specialties">Specialties</label>
-        <select name="specialties" className="form-control">
+        <select onChange={this._onChange}
+          name="specialties" 
+          className="form-control"
+        >
           {options}
         </select>
       </div>
