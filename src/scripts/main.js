@@ -20,7 +20,6 @@ import querystring from 'querystring';
     }
   
     return queryString || JSON.parse(localStorage.getItem('fydLocation'));
-      
   }
 
   /**

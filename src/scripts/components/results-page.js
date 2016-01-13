@@ -35,14 +35,18 @@ var ResultsPage = React.createClass({
     this._getDoctors(searchLocation);
   },
 
-  _getDoctors: function(queryObject) {
+  _getDoctors: function(queryObject, distance) {
+
+    var distance = distance || '25';
+
     request
       //.get('http://lookup.findyourdo.org/api/v1/physicians/search')
       .get('http://lookupapi.dev/api/v1/doctors/search')
-      .query({ page: '1' })
-      .query({ per_page: '25' })
-      .query({ order_by: 'distance' })
-      .query({ sort: 'asc' })
+      //.query({ page: '1' })
+      //.query({ per_page: '25' })
+      //.query({ order_by: 'distance' })
+      //.query({ sort: 'asc' })
+      .query({ distance: distance })
       .query({ city: queryObject.city })
       .query({ state: queryObject.state })
       .query({ zip: queryObject.zip })
@@ -111,6 +115,8 @@ var ResultsPage = React.createClass({
         <div className="col-md-6">
           <Filters data={this.state.data} 
             handleRadiusChange={this._handleRadiusChange}
+            getDoctors={this._getDoctors}
+            searchLocation={this.state.searchLocation}
           />
         </div>
       </div>
