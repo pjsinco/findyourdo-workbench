@@ -37,7 +37,7 @@ var SpecialtyFilter = React.createClass({
       );
     };
 
-    var options = [];
+    var options = [<option selected disabled>Choose specialty</option>];
 
     for (var specialty in specialties) {
       if (specialties.hasOwnProperty(specialty)) {
